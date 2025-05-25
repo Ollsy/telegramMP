@@ -1,7 +1,7 @@
 import telebot
 from handler import get_chats_id_info
 # Конфигурация
-TOKEN = ""  # Замените на токен бота
+TOKEN = "7737786825:AAER3bVUc3jCLcpaK_6nFzmLN312vZAfFkc"  # Замените на токен бота
 SOURCE_TARGET_CHAT_ID_DICT = get_chats_id_info('blacklist.txt', 'clearlist.txt')
 
 # SOURCE_CHAT_ID = "-411516982"  # Отсюда будем пересылать
@@ -37,11 +37,11 @@ def handle_photo(message):
 # Обработчик для видео
 @bot.message_handler(content_types=['video'])
 def handle_video(message):
-    if str(message.chat.id) == SOURCE_TARGET_CHAT_ID_DICT:
+    if int(message.chat.id) in SOURCE_TARGET_CHAT_ID_DICT:
         try:
             # Отправляем видео в целевую группу
             bot.send_video(
-                chat_id=SOURCE_TARGET_CHAT_ID_DICT,
+                chat_id = SOURCE_TARGET_CHAT_ID_DICT[int(message.chat.id)],
                 video=message.video.file_id,
              
             )

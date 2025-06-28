@@ -32,7 +32,12 @@ def get_pair_id(clearlist_dict: dict, blacklist_dict: dict) -> dict:
                 number_of_clear_name += symbol
 
         for blacklist_name in blacklist_dict:
-            if number_of_clear_name in blacklist_name:
+            number_of_black_name = ""
+            for symbol in blacklist_name:
+                if symbol.isdigit():
+                    number_of_black_name += symbol
+            if number_of_clear_name == number_of_black_name:
+
                 id_draft = int(blacklist_dict[blacklist_name])
                 id_clear = int(clearlist_dict[clearlist_name])
                 id_info[id_draft] = id_clear    
@@ -44,3 +49,4 @@ def get_chats_id_info(name_blacklist: str, name_clearlist: str) -> dict:
     draft = get_info_from_txt(name_blacklist, 10)
     info = get_pair_id(clear, draft)
     return info
+

@@ -1,25 +1,7 @@
-import telebot
-from handler import get_chats_id_info
-# Конфигурация
-TOKEN = "7737786825:AAER3bVUc3jCLcpaK_6nFzmLN312vZAfFkc"  # Замените на токен бота
-SOURCE_TARGET_CHAT_ID_DICT = get_chats_id_info('blacklist.txt', 'clearlist.txt')
 
-# SOURCE_CHAT_ID = "-411516982"  # Отсюда будем пересылать
-# TARGET_CHAT_ID = "-1001431040944"  # Сюда будем пересылать
 
-bot = telebot.TeleBot(TOKEN)
 
-login as: root
-root@91.240.85.229's password:
-Welcome to Ubuntu 24.04.2 LTS (GNU/Linux 6.8.0-50-generic x86_64)
 
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/pro
-Last login: Sat Jun 28 11:52:24 2025 from 212.58.120.172
-root@olesyantonovich:~# tmux attach
-[exited]
-root@olesyantonovich:~# cat telegramMP/mybottelegram.py
 import telebot
 from handler import get_chats_id_info
 # Конфигурация

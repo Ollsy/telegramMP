@@ -10,7 +10,7 @@ def get_info_from_txt(name_file: str, len_id: int = None) -> dict:
         line_list = line_doc.split()
         id_chat = line_list[0]
         name_chat = "".join(line_list[1:])
-        if len_id is not None and len(id_chat) != len_id:
+        if len_id is not None and (len(id_chat) != len_id or len(id_chat) != 14):
             print(Exception(f"неверная длина id {name_chat}, {id_chat}, {name_file}"))
    
         
@@ -36,7 +36,10 @@ def get_pair_id(clearlist_dict: dict, blacklist_dict: dict) -> dict:
             for symbol in blacklist_name:
                 if symbol.isdigit():
                     number_of_black_name += symbol
-            if number_of_clear_name == number_of_black_name:
+            psklad = 'psklad' in clearlist_name.lower() and 'склад' in blacklist_name.lower()
+            bags = 'сумки' in clearlist_name.lower() and 'сумки' in blacklist_name.lower()
+
+            if (number_of_clear_name == number_of_black_name) and (psklad or bags):
 
                 id_draft = int(blacklist_dict[blacklist_name])
                 id_clear = int(clearlist_dict[clearlist_name])
@@ -49,4 +52,5 @@ def get_chats_id_info(name_blacklist: str, name_clearlist: str) -> dict:
     draft = get_info_from_txt(name_blacklist, 10)
     info = get_pair_id(clear, draft)
     return info
+
 

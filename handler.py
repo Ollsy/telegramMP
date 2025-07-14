@@ -1,3 +1,6 @@
+import re
+
+
 def get_info_from_txt(name_file: str, len_id: int = None) -> dict:
     file = open(name_file, mode='r', encoding="UTF-8")
 
@@ -17,7 +20,7 @@ def get_info_from_txt(name_file: str, len_id: int = None) -> dict:
         data[name_chat] = id_chat
     
     file.close()
-
+    print(data)
     return data
     
 
@@ -27,13 +30,21 @@ def get_pair_id(clearlist_dict: dict, blacklist_dict: dict) -> dict:
 
     for clearlist_name in clearlist_dict:
         number_of_clear_name = ""
-        for symbol in clearlist_name:
+        print(clearlist_name)
+        rename_clear = re.search(r"(сумки|psklad)[ ]{0,}[0-9]{1,}", clearlist_name.lower()).group(0)
+        
+        
+        for symbol in rename_clear:
             if symbol.isdigit():
                 number_of_clear_name += symbol
 
         for blacklist_name in blacklist_dict:
+            print(blacklist_name)
+            rename_black = re.search(r"(сумки|склад)[ ]{0,}[0-9]{1,}", blacklist_name.lower()).group(0)
+            
+
             number_of_black_name = ""
-            for symbol in blacklist_name:
+            for symbol in rename_black:
                 if symbol.isdigit():
                     number_of_black_name += symbol
             psklad = 'psklad' in clearlist_name.lower() and 'склад' in blacklist_name.lower()
@@ -44,6 +55,8 @@ def get_pair_id(clearlist_dict: dict, blacklist_dict: dict) -> dict:
                 id_draft = int(blacklist_dict[blacklist_name])
                 id_clear = int(clearlist_dict[clearlist_name])
                 id_info[id_draft] = id_clear    
+    print(id_info)
+    
     return id_info
 
 
@@ -53,4 +66,5 @@ def get_chats_id_info(name_blacklist: str, name_clearlist: str) -> dict:
     info = get_pair_id(clear, draft)
     return info
 
-
+if __name__ == "__main__":
+    get_chats_id_info("blacklist.txt","clearlist.txt")

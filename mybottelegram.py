@@ -28,7 +28,9 @@ def handle_photo(message):
             bot.send_photo(
                 chat_id = SOURCE_TARGET_CHAT_ID_DICT[int(message.chat.id)],
 
-                photo=message.photo[-1].file_id,  # Берем фото максимального качества
+                photo=message.photo[-1].file_id,  
+                caption=message.caption
+                # Берем фото максимального качества
             
             )
         except Exception as e:
@@ -59,7 +61,7 @@ def handle_photo(message):
                 chat_id = SOURCE_TARGET_CHAT_ID_DICT[int(message.chat.id)],
 
                 photo=message.photo[-1].file_id,  # Берем фото максимального качества
-            
+                caption=message.caption
             )
         except Exception as e:
             print(f"Ошибка: {e}")
